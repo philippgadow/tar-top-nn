@@ -11,9 +11,9 @@ RUN pip3 install numpy scipy pandas matplotlib seaborn atlas-mpl-style uproot py
 
 WORKDIR /home/hep
 
-ENV MG_VERSION="MG5_aMC_v2_9_1_2"
+ENV MG_VERSION="MG5_aMC_v2_9_2"
 
-RUN wget --quiet -O- https://launchpad.net/mg5amcnlo/2.0/2.9.x/+download/MG5_aMC_v2.9.1.2.tar.gz | tar xzf -
+RUN wget --quiet -O- https://launchpad.net/mg5amcnlo/2.0/2.9.x/+download/MG5_aMC_v2.9.2.tar.gz | tar xzf -
 WORKDIR /home/hep/${MG_VERSION}
 
 ENV ROOTSYS /usr/local
