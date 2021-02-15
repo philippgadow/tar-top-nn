@@ -38,6 +38,7 @@ RUN wget --quiet -O- http://lhapdfsets.web.cern.ch/lhapdfsets/current/NNPDF31_lo
 # (must install pre-release due to missing TF1 include in current version 4.2)
 WORKDIR /home/hep/${MG_VERSION}/HEPTools
 RUN wget --quiet -O- https://github.com/delphes/delphes/archive/3.4.3pre08.tar.gz | tar xzf - && cd delphes-3.4.3pre08 && make
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/home/hep/${MG_VERSION}/HEPTools/delphes-3.4.3pre08/
 
 # set up config executables
 RUN echo "set lhapdf /home/hep/${MG_VERSION}/HEPTools/lhapdf6_py3/bin/lhapdf-config" | /home/hep/${MG_VERSION}/bin/mg5_aMC
@@ -45,9 +46,11 @@ RUN echo "set delphes_path /home/hep/${MG_VERSION}/HEPTools/delphes-3.4.3pre08/"
 
 # set up MadGraph
 RUN echo "set auto_convert_model True" | /home/hep/${MG_VERSION}/bin/mg5_aMC
+COPY . /home/hep/
 
 # set workdir and environment variables
 WORKDIR /var/MG_outputs
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/home/hep/${MG_VERSION}/HEPTools/lib/
+ENV PATH /home/hep/${MG_VERSION}/bin:$PATH
 CMD /bin/bash
 
